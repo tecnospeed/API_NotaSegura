@@ -175,7 +175,7 @@ object Form4: TForm4
       ImageIndex = 2
       object Label1: TLabel
         Left = 3
-        Top = 309
+        Top = 285
         Width = 71
         Height = 13
         Caption = 'XML RETORNO'
@@ -237,13 +237,11 @@ object Form4: TForm4
         FixedRows = 0
         TabOrder = 4
       end
-      object mmoReturn: TMemo
+      object TMemo
         Left = 3
-        Top = 328
+        Top = 304
         Width = 552
-        Height = 164
-        Lines.Strings = (
-          'mmoReturn')
+        Height = 188
         TabOrder = 5
       end
     end
@@ -258,15 +256,6 @@ object Form4: TForm4
     EditLabel.Caption = 'Senha:'
     PasswordChar = '*'
     TabOrder = 3
-  end
-  object BtnXML: TButton
-    Left = 15
-    Top = 392
-    Width = 552
-    Height = 25
-    Caption = 'Buscar XML da nota selecionada'
-    TabOrder = 4
-    OnClick = BtnXMLClick
   end
   object OpenDialog: TOpenDialog
     Left = 471

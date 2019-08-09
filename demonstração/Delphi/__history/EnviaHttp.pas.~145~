@@ -206,10 +206,9 @@ begin
 
   for i := 0 to jsArray .Count-1 do
    begin
-
       jsonObject := jsArray.Items[i] as TJSONObject;
+      StringGrid.RowCount := StringGrid.RowCount + 1;
 
-                     StringGrid.RowCount := StringGrid.RowCount + 1;
       StringGrid.Cells[0,i+1] := jsonObject.GetValue<string>('key');
       StringGrid.Cells[1,i+1] := i.ToString;
 

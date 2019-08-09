@@ -237,13 +237,11 @@ object Form4: TForm4
         FixedRows = 0
         TabOrder = 4
       end
-      object mmoReturn: TMemo
+      object TMemo
         Left = 3
         Top = 328
         Width = 552
         Height = 164
-        Lines.Strings = (
-          'mmoReturn')
         TabOrder = 5
       end
     end
@@ -266,7 +264,6 @@ object Form4: TForm4
     Height = 25
     Caption = 'Buscar XML da nota selecionada'
     TabOrder = 4
-    OnClick = BtnXMLClick
   end
   object OpenDialog: TOpenDialog
     Left = 471

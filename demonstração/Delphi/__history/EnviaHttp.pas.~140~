@@ -203,15 +203,12 @@ begin
   last_id := JsonValue.GetValue<integer>('data.last_id');
 
   jsArray := JSonValue.GetValue<TJSONArray>('data.invoices') as TJSONArray;
-
   for i := 0 to jsArray .Count-1 do
    begin
-
       jsonObject := jsArray.Items[i] as TJSONObject;
 
-                     StringGrid.RowCount := StringGrid.RowCount + 1;
-      StringGrid.Cells[0,i+1] := jsonObject.GetValue<string>('key');
-      StringGrid.Cells[1,i+1] := i.ToString;
+      StringGrid.Cells[0,i] := jsonObject.GetValue<string>('key');
+      StringGrid.Cells[1,i] := i.ToString;
 
 
    end;

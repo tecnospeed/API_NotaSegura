@@ -231,7 +231,7 @@ object Form4: TForm4
         Top = 126
         Width = 552
         Height = 153
-        ColCount = 2
+        ColCount = 1
         FixedCols = 0
         RowCount = 1
         FixedRows = 0
