@@ -32,15 +32,28 @@ object Form4: TForm4
     EditLabel.Width = 33
     EditLabel.Height = 13
     EditLabel.Caption = 'Token:'
-    TabOrder = 1
+    TabOrder = 2
   end
   object pgc1: TPageControl
     Left = 8
     Top = 83
     Width = 566
     Height = 520
+    ParentCustomHint = False
     ActivePage = BuscaDestinadas
-    TabOrder = 2
+    BiDiMode = bdLeftToRight
+    DoubleBuffered = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBiDiMode = False
+    ParentDoubleBuffered = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = False
+    TabOrder = 3
     object tsEnviarXml: TTabSheet
       Caption = 'Envio de XML'
       object lbl1: TLabel
@@ -173,6 +186,7 @@ object Form4: TForm4
     object BuscaDestinadas: TTabSheet
       Caption = 'Busca de notas destinadas'
       ImageIndex = 2
+      ExplicitLeft = 0
       object Label1: TLabel
         Left = 3
         Top = 309
@@ -180,31 +194,25 @@ object Form4: TForm4
         Height = 13
         Caption = 'XML RETORNO'
       end
-      object edtDTinicial: TLabeledEdit
-        Left = 3
-        Top = 68
-        Width = 126
-        Height = 21
-        EditLabel.Width = 51
-        EditLabel.Height = 13
-        EditLabel.Caption = 'Data inicial'
-        TabOrder = 0
+      object Label3: TLabel
+        Left = 136
+        Top = 49
+        Width = 46
+        Height = 13
+        Caption = 'Data final'
       end
-      object edtDTfinal: TLabeledEdit
-        Left = 143
-        Top = 68
-        Width = 121
-        Height = 21
-        EditLabel.Width = 46
-        EditLabel.Height = 13
-        EditLabel.Caption = 'Data final'
-        TabOrder = 1
+      object Label4: TLabel
+        Left = 3
+        Top = 49
+        Width = 51
+        Height = 13
+        Caption = 'Data inicial'
       end
       object RadioGroup1: TRadioGroup
         Left = 3
         Top = 3
         Width = 555
-        Height = 49
+        Height = 38
         Caption = 'Tipo da Nota'
         Columns = 7
         Items.Strings = (
@@ -215,7 +223,7 @@ object Form4: TForm4
           'CCECTE'
           'SAT'
           'CTEOS')
-        TabOrder = 2
+        TabOrder = 0
       end
       object Button1: TButton
         Left = 3
@@ -223,28 +231,55 @@ object Form4: TForm4
         Width = 559
         Height = 25
         Caption = 'Consultar Notas'
-        TabOrder = 3
+        TabOrder = 1
         OnClick = Button1Click
-      end
-      object StringGrid: TStringGrid
-        Left = 3
-        Top = 126
-        Width = 552
-        Height = 153
-        ColCount = 2
-        FixedCols = 0
-        RowCount = 1
-        FixedRows = 0
-        TabOrder = 4
       end
       object mmoReturn: TMemo
         Left = 3
         Top = 328
         Width = 552
-        Height = 164
-        Lines.Strings = (
-          'mmoReturn')
+        Height = 161
+        TabOrder = 2
+      end
+      object DBGrid1: TDBGrid
+        Left = 3
+        Top = 126
+        Width = 552
+        Height = 153
+        DataSource = DataSource1
+        TabOrder = 3
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object DateTimePicker1: TDateTimePicker
+        Left = 3
+        Top = 68
+        Width = 106
+        Height = 21
+        Date = 43690.000000000000000000
+        Time = 0.637081064814992700
+        TabOrder = 4
+      end
+      object DateTimePicker2: TDateTimePicker
+        Left = 136
+        Top = 68
+        Width = 113
+        Height = 21
+        Date = 43690.000000000000000000
+        Time = 0.637464027779060400
         TabOrder = 5
+      end
+      object BtnXML: TButton
+        Left = 3
+        Top = 285
+        Width = 552
+        Height = 25
+        Caption = 'Buscar XML da nota selecionada'
+        TabOrder = 6
+        OnClick = BtnXMLClick
       end
     end
   end
@@ -257,19 +292,39 @@ object Form4: TForm4
     EditLabel.Height = 13
     EditLabel.Caption = 'Senha:'
     PasswordChar = '*'
-    TabOrder = 3
-  end
-  object BtnXML: TButton
-    Left = 15
-    Top = 392
-    Width = 552
-    Height = 25
-    Caption = 'Buscar XML da nota selecionada'
-    TabOrder = 4
-    OnClick = BtnXMLClick
+    TabOrder = 1
   end
   object OpenDialog: TOpenDialog
     Left = 471
     Top = 104
+  end
+  object FDMemTable1: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'Key'
+        DataType = ftString
+        Size = 50
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 480
+    Top = 240
+    object FDMemTable1Key: TStringField
+      FieldName = 'Key'
+      Size = 50
+    end
+  end
+  object DataSource1: TDataSource
+    DataSet = FDMemTable1
+    Left = 528
+    Top = 232
   end
 end

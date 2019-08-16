@@ -7,7 +7,9 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, DateUtils, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, IdHTTP, IdIOHandler, IdIOHandlerSocket,
   IdIOHandlerStack, IdSSL, IdSSLOpenSSL, Vcl.ComCtrls, System.JSON, Data.DB,
-  Vcl.Grids, Vcl.DBGrids;
+  Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
 THackStringGrid = class(TStringGrid);
@@ -31,17 +33,22 @@ THackStringGrid = class(TStringGrid);
     btnCadastrar: TButton;
     Retorno: TLabel;
     BuscaDestinadas: TTabSheet;
-    edtDTinicial: TLabeledEdit;
-    edtDTfinal: TLabeledEdit;
     RadioGroup1: TRadioGroup;
     Button1: TButton;
     edtSenha: TLabeledEdit;
     mmoCadastro: TMemo;
-    StringGrid: TStringGrid;
     OpenDialog: TOpenDialog;
     Label1: TLabel;
-    BtnXML: TButton;
     mmoReturn: TMemo;
+    DBGrid1: TDBGrid;
+    FDMemTable1: TFDMemTable;
+    DataSource1: TDataSource;
+    FDMemTable1Key: TStringField;
+    Label3: TLabel;
+    DateTimePicker1: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
+    BtnXML: TButton;
+    Label4: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnEnviarClick(Sender: TObject);
     procedure btnArquivoClick(Sender: TObject);
@@ -83,6 +90,7 @@ end;
  _xml.LoadFromFile(_file);
  mmoXML.Text := _xml.DataString;
  FreeAndNil(_xml);
+
 end;
 
 procedure TForm4.btnCadastrarClick(Sender: TObject);
@@ -141,6 +149,7 @@ begin
   ParamList.Values['xml'] := mmoXML.Text;
   mmoRetorno.Clear;
   mmoRetorno.Text :=   fHTTPClient.Post(url, ParamList);
+
 end;
 
 procedure TForm4.BtnXMLClick(Sender: TObject);
@@ -151,7 +160,8 @@ var
 
 begin
 
-  chave := StringGrid.Cells[StringGrid.Col, StringGrid.Row];
+
+  chave := DBGrid1.Columns[0].Field.Value;
   if Length(chave) = 44 then
   begin
     ParamList.Clear;
@@ -181,14 +191,20 @@ var
  count: integer;
  last_id: integer;
  nRow: integer;
+ dataini: string;
+ datafim: string;
  i: integer;
  a: integer;
 begin
+  DBGrid1.DataSource.DataSet.Close;
+  DBGrid1.DataSource.DataSet.Open;
 
+  dataini := FormatDateTime('yyyy-mm-dd',DateTimePicker1.Date);
+  datafim := FormatDateTime('yyyy-mm-dd',DateTimePicker2.Date);
 
   ParamList.Clear;
   Application.ProcessMessages;
-  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ edtDTinicial.Text +'&date_end='+edtDTfinal.Text+'&mod=NFE&transaction=received&limit=30&last_id=';
+  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ RadioGroup1.Items[RadioGroup1.ItemIndex] +'&transaction=received&limit=30&last_id=';
   HTTPClient.Request.Accept := 'application/xml';
   HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
   HTTPClient.Request.BasicAuthentication := true;
@@ -208,21 +224,17 @@ begin
    begin
 
       jsonObject := jsArray.Items[i] as TJSONObject;
-
-                     StringGrid.RowCount := StringGrid.RowCount + 1;
-      StringGrid.Cells[0,i+1] := jsonObject.GetValue<string>('key');
-      StringGrid.Cells[1,i+1] := i.ToString;
-
-
+      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key')]);
    end;
 
    total := total - count;
    while total > 0 do
    begin
 
+
     ParamList.Clear;
     Application.ProcessMessages;
-    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ edtDTinicial.Text +'&date_end='+edtDTfinal.Text+'&mod=NFE&transaction=received&limit=30&last_id=' + last_id.ToString;
+    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ RadioGroup1.Items[RadioGroup1.ItemIndex] +'&transaction=received&limit=30&last_id=' + last_id.ToString;
     HTTPClient.Request.Accept := 'application/xml';
     HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
     HTTPClient.Request.BasicAuthentication := true;
@@ -241,15 +253,12 @@ begin
     begin
 
       jsonObject := jsArray.Items[a] as TJSONObject;
-      StringGrid.RowCount := StringGrid.RowCount + 1;
+      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key')]);
 
-      StringGrid.Cells[0,i+a] := jsonObject.GetValue<string>('key');
-      StringGrid.Cells[1,a+i] := a.ToString;
     end;
 
     total := total - count;
    end;
-
 
 
 end;
@@ -265,8 +274,7 @@ begin
   HTTPClient.Request.UserAgent := 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko';
   fHTTPClient.IOHandler := fIOHandlerSocketOpenSSL;
 
-  StringGrid.Cells[0,0] := 'Chave xml';
-  StringGrid.ColWidths[0] := 500;
+
 end;
 
 //FUNÇÃO PARA BUSCAR INFORMAÇÕES VIA API
@@ -277,7 +285,7 @@ end;
   Begin
     ParamList.Clear;
     Application.ProcessMessages;
-    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ edtDTinicial.Text +'&date_end='+edtDTfinal.Text+'&mod=NFE&transaction=received&limit=30&last_id=' + last_id.ToString;
+    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini=&date_end=&mod=NFE&transaction=received&limit=30&last_id=' + last_id.ToString;
     HTTPClient.Request.Accept := 'application/xml';
     HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
     HTTPClient.Request.BasicAuthentication := true;
