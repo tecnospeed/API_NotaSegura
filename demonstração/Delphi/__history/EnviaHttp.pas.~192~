@@ -39,17 +39,16 @@ THackStringGrid = class(TStringGrid);
     mmoCadastro: TMemo;
     OpenDialog: TOpenDialog;
     Label1: TLabel;
-    BtnXML: TButton;
     mmoReturn: TMemo;
     DBGrid1: TDBGrid;
     FDMemTable1: TFDMemTable;
     DataSource1: TDataSource;
     FDMemTable1Key: TStringField;
+    Label3: TLabel;
     DateTimePicker1: TDateTimePicker;
     DateTimePicker2: TDateTimePicker;
-    Label2: TLabel;
-    Label3: TLabel;
-    FDMemTable1COUNT: TStringField;
+    BtnXML: TButton;
+    Label4: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnEnviarClick(Sender: TObject);
     procedure btnArquivoClick(Sender: TObject);
@@ -205,7 +204,7 @@ begin
 
   ParamList.Clear;
   Application.ProcessMessages;
-  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod=NFE&transaction=received&limit=30&last_id=';
+  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ RadioGroup1.Items[RadioGroup1.ItemIndex] +'&transaction=received&limit=30&last_id=';
   HTTPClient.Request.Accept := 'application/xml';
   HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
   HTTPClient.Request.BasicAuthentication := true;
@@ -225,7 +224,7 @@ begin
    begin
 
       jsonObject := jsArray.Items[i] as TJSONObject;
-      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key'),'TESTE']);
+      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key')]);
    end;
 
    total := total - count;
@@ -235,7 +234,7 @@ begin
 
     ParamList.Clear;
     Application.ProcessMessages;
-    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod=NFE&transaction=received&limit=30&last_id=' + last_id.ToString;
+    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ RadioGroup1.Items[RadioGroup1.ItemIndex] +'&transaction=received&limit=30&last_id=' + last_id.ToString;
     HTTPClient.Request.Accept := 'application/xml';
     HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
     HTTPClient.Request.BasicAuthentication := true;
@@ -260,7 +259,6 @@ begin
 
     total := total - count;
    end;
-
 
 
 end;

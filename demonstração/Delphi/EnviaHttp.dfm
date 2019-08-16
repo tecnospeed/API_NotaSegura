@@ -56,6 +56,10 @@ object Form4: TForm4
     TabOrder = 3
     object tsEnviarXml: TTabSheet
       Caption = 'Envio de XML'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lbl1: TLabel
         Left = 532
         Top = 42
@@ -108,6 +112,10 @@ object Form4: TForm4
     object tsCadastroUser: TTabSheet
       Caption = 'Cadastro de Usuario'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Retorno: TLabel
         Left = 3
         Top = 167
@@ -186,7 +194,6 @@ object Form4: TForm4
     object BuscaDestinadas: TTabSheet
       Caption = 'Busca de notas destinadas'
       ImageIndex = 2
-      ExplicitLeft = 0
       object Label1: TLabel
         Left = 3
         Top = 309
