@@ -1,0 +1,79 @@
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\Destinadas.exe.config
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\Destinadas.exe
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\Destinadas.pdb
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\RestSharp.dll
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\RestSharp.xml
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.csprojAssemblyReference.cache
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.Properties.Resources.resources
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.GenerateResource.cache
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.CoreCompileInputs.cache
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.CopyComplete
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.exe
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.pdb
+C:\Project\Demonstracao\Destinadas\bin\Debug\Destinadas.exe.config
+C:\Project\Demonstracao\Destinadas\bin\Debug\Destinadas.exe
+C:\Project\Demonstracao\Destinadas\bin\Debug\Destinadas.pdb
+C:\Project\Demonstracao\Destinadas\bin\Debug\RestSharp.dll
+C:\Project\Demonstracao\Destinadas\bin\Debug\System.Json.dll
+C:\Project\Demonstracao\Destinadas\bin\Debug\RestSharp.xml
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.csprojAssemblyReference.cache
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.Properties.Resources.resources
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.csproj.GenerateResource.cache
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.csproj.CoreCompileInputs.cache
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.csproj.CopyComplete
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.exe
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.pdb
+C:\Project\Demonstracao\Destinadas\bin\Debug\Newtonsoft.Json.dll
+C:\Project\Demonstracao\Destinadas\bin\Debug\Newtonsoft.Json.xml
+C:\Project\Demonstracao\Destinadas\obj\Debug\Destinadas.Invoices.resources
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\Newtonsoft.Json.dll
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\System.Json.dll
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\bin\Debug\Newtonsoft.Json.xml
+C:\Users\felipe.vebanek\source\repos\Destinadas\Destinadas\obj\Debug\Destinadas.Destinadas.resources
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\Destinadas.exe.config
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\Destinadas.exe
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\Destinadas.pdb
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\Newtonsoft.Json.dll
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\RestSharp.dll
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\System.Json.dll
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\Newtonsoft.Json.xml
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\bin\Debug\RestSharp.xml
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.csprojAssemblyReference.cache
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.Destinadas.resources
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.Properties.Resources.resources
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.GenerateResource.cache
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.CoreCompileInputs.cache
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.CopyComplete
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.exe
+C:\Repositor\Busca destinadas nota segura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.pdb
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\Destinadas.exe.config
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\Destinadas.exe
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\Destinadas.pdb
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\Newtonsoft.Json.dll
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\RestSharp.dll
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\System.Json.dll
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\Newtonsoft.Json.xml
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\bin\Debug\RestSharp.xml
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.Destinadas.resources
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.Properties.Resources.resources
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.GenerateResource.cache
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.CoreCompileInputs.cache
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.csproj.CopyComplete
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.exe
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\Destinadas\obj\Debug\Destinadas.pdb
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\Destinadas.exe.config
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\Destinadas.exe
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\Destinadas.pdb
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\Newtonsoft.Json.dll
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\RestSharp.dll
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\System.Json.dll
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\Newtonsoft.Json.xml
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\bin\Debug\RestSharp.xml
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.csprojAssemblyReference.cache
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.Destinadas.resources
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.Properties.Resources.resources
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.csproj.GenerateResource.cache
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.csproj.CoreCompileInputs.cache
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.csproj.CopyComplete
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.exe
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.pdb
