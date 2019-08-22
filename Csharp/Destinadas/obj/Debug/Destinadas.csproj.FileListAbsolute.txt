@@ -77,3 +77,4 @@ C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.csproj.CoreCo
 C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.csproj.CopyComplete
 C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.exe
 C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.pdb
+C:\Repositor\API_NotaSegura\Csharp\Destinadas\obj\Debug\Destinadas.Form2.resources

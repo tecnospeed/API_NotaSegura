@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Json;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,21 +23,56 @@ namespace Destinadas
         public Destinadas()
         {
             InitializeComponent();
+            rdEmitidas.Checked = true;
             txtLogin.Text = "";
             txtSenha.Text = "";
             txtToken.Text = "";
-
+            
 
         }
 
         private void BtnConsulta_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public void salvarArquivo(string xml, string chave)
+        {
+            FileStream a = new FileStream(txtCaminho.Text + chave +".xml", FileMode.OpenOrCreate);
+            StreamWriter sw = new StreamWriter(a);
+            sw.WriteLine(xml);
+            sw.Flush();
+            sw.Close();
+            a.Close();
+        }
+
+
+
+
+        private void Destinadas_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void BtnConsulta_Click_1(object sender, EventArgs e)
+        {
             DateTime dataini;
             DateTime datafim;
             string last_id = "";
+            string transaction = "sent";
             dynamic json;
             int contador = 0;
+            lbAguarde.Text = "Buscando informações, aguarde...";
+
+            if (rdEmitidas.Checked)
+                transaction = "sent";
+            if (rdRecebidas.Checked)
+                transaction = "received";
+            if (rdOutras.Checked)
+                transaction = "other";
+            if (rdTodas.Checked)
+                transaction = "all";
+
 
             try
             {
@@ -45,11 +81,13 @@ namespace Destinadas
                 datafim = DateTime.Parse(txtDtFinal.Text);
                 API busca = new API(txtToken.Text, txtLogin.Text, txtSenha.Text);
 
-                var teste = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id);  ///Método que busca as notas utilizando a API do nota segura
+
+
+                var teste = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);  ///Método que busca as notas utilizando a API do nota segura
                 string key, id;
                 dynamic result = JsonConvert.DeserializeObject(teste);
 
-
+               
                 //Percorrendo as chaves dos xml's encontrado
                 List<Xml> xmls = new List<Xml>();
                 foreach (var invoices in result.data.invoices)
@@ -90,7 +128,8 @@ namespace Destinadas
                             xmls.Add(new Xml(key, serie, numero, dtemissao));
                         }
                     }
-                    else {
+                    else
+                    {
                         xmls.Add(new Xml(key));
                     }
 
@@ -104,7 +143,7 @@ namespace Destinadas
 
                 while (total > 0)
                 {
-                    teste = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id);
+                    teste = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);
                     result = JsonConvert.DeserializeObject(teste);
 
                     foreach (var invoices in result.data.invoices)
@@ -131,7 +170,7 @@ namespace Destinadas
 
                             //Extraindo dados do emitente e adicionando na lista
                             var n2 = xmlDoc.GetElementsByTagName("emit").OfType<XmlNode>();
-                            if (n2 != null && n2.Count() > 0 )
+                            if (n2 != null && n2.Count() > 0)
                             {
                                 XmlNodeList ideXml2 = xmlDoc.GetElementsByTagName("emit");
                                 string cnpj = ideXml2[0]["CNPJ"].InnerText;
@@ -139,7 +178,7 @@ namespace Destinadas
                                 xmls.Add(new Xml(key, serie, numero, dtemissao, cnpj));
                             }
 
-                            
+
                         }
                         else
                         {
@@ -169,29 +208,80 @@ namespace Destinadas
                     else
                         column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                lbAguarde.Text = "";
             }
-            catch (Exception erro) {
+            catch (Exception erro)
+            {
                 MessageBox.Show(erro.Message);
+                lbAguarde.Text = "";
             }
 
             lb.Text = "Total: " + contador.ToString();
+
         }
 
-        public void salvarArquivo(string xml, string chave)
+        private void Button2_Click(object sender, EventArgs e)
         {
-            FileStream a = new FileStream(txtCaminho.Text + chave +".xml", FileMode.OpenOrCreate);
-            StreamWriter sw = new StreamWriter(a);
-            sw.WriteLine(xml);
-            sw.Flush();
-            sw.Close();
-            a.Close();
+            
+            API busca = new API(txtToken.Text, txtLogin.Text, txtSenha.Text);
+            try
+            {
+                txtRetornoXml.Text = busca.EnviaXml(txtArquivoXml.Text);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+            
+
+
         }
 
+        private void BtnEscolher_Click(object sender, EventArgs e)
+        {
+
+            this.dialogArquivo.Multiselect = true;
+            this.dialogArquivo.Title = "Selecionar arquivo xml";
+            dialogArquivo.InitialDirectory = @"C:\Users\desktop";
+
+            dialogArquivo.Filter = "XML Files (*.xml)|*.xml";
+            dialogArquivo.CheckFileExists = true;
+            dialogArquivo.CheckPathExists = true;
+            dialogArquivo.FilterIndex = 2;
+            dialogArquivo.RestoreDirectory = true;
+            dialogArquivo.ReadOnlyChecked = true;
+            dialogArquivo.ShowReadOnly = true;
+
+            DialogResult dr = this.dialogArquivo.ShowDialog();
+
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                foreach (String arquivo in dialogArquivo.FileNames)
+                {
+                    try
+                    {
+                        XmlDocument xmlLoad = new XmlDocument();
+                        xmlLoad.Load(arquivo);
+
+                        txtArquivoXml.Text =  xmlLoad.OuterXml;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Não é possível carregar o xml:  " + ex.Message);
+                    }
+                }
+            }
+
+
+
+        }
         //SALVAR XML NAS PASTAS SELECIONADAS
-        private void Button1_Click(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
             try
             {
+                lbExportacaoXML.Text = "Arquivos sendo exportados, aguarde...";
                 dynamic json;
                 foreach (DataGridViewRow dataGridViewRow in dataGridView1.Rows)
                 {
@@ -204,20 +294,21 @@ namespace Destinadas
 
                     salvarArquivo(json.data.xml.ToString(), s.ToString());
                 }
+                lbExportacaoXML.Text = "";
+
+                MessageBox.Show("Dados exportados com sucesso!");
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message);
+                lbExportacaoXML.Text = "";
             }
-            
-        }
-
-        private void Destinadas_Load(object sender, EventArgs e)
-        {
-
         }
     }
 
+
+
+    //**********************************************************************************************************************
     //OBJETO XML
     class Xml
     {
