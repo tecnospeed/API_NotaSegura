@@ -39,6 +39,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbExportacaoXML = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCaminho = new System.Windows.Forms.TextBox();
             this.lb = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.txtArquivoXml = new System.Windows.Forms.TextBox();
             this.btnEscolher = new System.Windows.Forms.Button();
             this.dialogArquivo = new System.Windows.Forms.OpenFileDialog();
-            this.lbExportacaoXML = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -185,6 +185,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(860, 72);
             this.panel1.TabIndex = 22;
+            // 
+            // lbExportacaoXML
+            // 
+            this.lbExportacaoXML.AutoSize = true;
+            this.lbExportacaoXML.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lbExportacaoXML.Location = new System.Drawing.Point(4, 53);
+            this.lbExportacaoXML.Name = "lbExportacaoXML";
+            this.lbExportacaoXML.Size = new System.Drawing.Size(0, 13);
+            this.lbExportacaoXML.TabIndex = 22;
             // 
             // label6
             // 
@@ -358,16 +367,16 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(869, 446);
+            this.tabPage2.Size = new System.Drawing.Size(869, 429);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Enviar xml";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(6, 399);
+            this.button2.Location = new System.Drawing.Point(6, 383);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(857, 41);
+            this.button2.Size = new System.Drawing.Size(857, 44);
             this.button2.TabIndex = 5;
             this.button2.Text = "Enviar XML";
             this.button2.UseVisualStyleBackColor = true;
@@ -396,7 +405,7 @@
             this.txtRetornoXml.Location = new System.Drawing.Point(6, 260);
             this.txtRetornoXml.Multiline = true;
             this.txtRetornoXml.Name = "txtRetornoXml";
-            this.txtRetornoXml.Size = new System.Drawing.Size(857, 133);
+            this.txtRetornoXml.Size = new System.Drawing.Size(857, 117);
             this.txtRetornoXml.TabIndex = 2;
             // 
             // txtArquivoXml
@@ -420,15 +429,6 @@
             // dialogArquivo
             // 
             this.dialogArquivo.FileName = "openFileDialog1";
-            // 
-            // lbExportacaoXML
-            // 
-            this.lbExportacaoXML.AutoSize = true;
-            this.lbExportacaoXML.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lbExportacaoXML.Location = new System.Drawing.Point(4, 53);
-            this.lbExportacaoXML.Name = "lbExportacaoXML";
-            this.lbExportacaoXML.Size = new System.Drawing.Size(0, 13);
-            this.lbExportacaoXML.TabIndex = 22;
             // 
             // Destinadas
             // 
