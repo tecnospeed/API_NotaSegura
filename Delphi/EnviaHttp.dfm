@@ -295,13 +295,7 @@ object Form4: TForm4
     Top = 104
   end
   object FDMemTable1: TFDMemTable
-    Active = True
-    FieldDefs = <
-      item
-        Name = 'Key'
-        DataType = ftString
-        Size = 50
-      end>
+    FieldDefs = <>
     IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
@@ -314,8 +308,25 @@ object Form4: TForm4
     Left = 480
     Top = 240
     object FDMemTable1Key: TStringField
+      DisplayWidth = 44
       FieldName = 'Key'
-      Size = 50
+      Size = 52
+    end
+    object FDMemTable1serie: TStringField
+      FieldName = 'serie'
+      Size = 5
+    end
+    object FDMemTable1number: TStringField
+      FieldName = 'number'
+      Size = 10
+    end
+    object FDMemTable1cnpjemissor: TStringField
+      FieldName = 'cnpj emissor'
+      Size = 15
+    end
+    object FDMemTable1total: TStringField
+      FieldName = 'total'
+      Size = 5
     end
   end
   object DataSource1: TDataSource

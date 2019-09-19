@@ -49,6 +49,10 @@ THackStringGrid = class(TStringGrid);
     DateTimePicker2: TDateTimePicker;
     BtnXML: TButton;
     Label4: TLabel;
+    FDMemTable1number: TStringField;
+    FDMemTable1serie: TStringField;
+    FDMemTable1cnpjemissor: TStringField;
+    FDMemTable1total: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure btnEnviarClick(Sender: TObject);
     procedure btnArquivoClick(Sender: TObject);
@@ -234,7 +238,11 @@ begin
    begin
 
       jsonObject := jsArray.Items[i] as TJSONObject;
-      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key')]);
+      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key'),
+                                jsonObject.GetValue<string>('serie'),
+                                jsonObject.GetValue<string>('number'),
+                                jsonObject.GetValue<string>('cnpj_emitter'),
+                                jsonObject.GetValue<string>('value') ] );
    end;
 
    total := total - count;
@@ -263,7 +271,11 @@ begin
     begin
 
       jsonObject := jsArray.Items[a] as TJSONObject;
-      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key')]);
+      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key'),
+                                jsonObject.GetValue<string>('serie'),
+                                jsonObject.GetValue<string>('number'),
+                                jsonObject.GetValue<string>('cnpj_emitter'),
+                                jsonObject.GetValue<string>('value') ] );
 
     end;
 

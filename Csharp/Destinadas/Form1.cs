@@ -83,55 +83,19 @@ namespace Destinadas
 
 
 
-                var teste = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);  ///Método que busca as notas utilizando a API do nota segura
-                string key, id;
-                dynamic result = JsonConvert.DeserializeObject(teste);
+                var retorno_notas = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);  ///Método que busca as notas utilizando a API do nota segura
 
-               
+                dynamic result = JsonConvert.DeserializeObject(retorno_notas);
+
+
                 //Percorrendo as chaves dos xml's encontrado
-                List<Xml> xmls = new List<Xml>();
+
+
+                List<Nota> notas = new List<Nota>();
                 foreach (var invoices in result.data.invoices)
                 {
                     contador += 1;
-
-                    key = invoices.key;
-                    id = invoices.id;
-                    var retorno = busca.RetornaXml(key);
-                    json = JsonConvert.DeserializeObject(retorno);
-
-                    //Extraindo informações do xml com XmlDocument
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(json.data.xml.ToString());
-
-                    //Verificando se a tag ide existe, para que possa extrar as informações
-                    var n = xmlDoc.GetElementsByTagName("ide").OfType<XmlNode>();
-                    if (n != null && n.Count() > 0)
-                    {
-                        XmlNodeList ideXml = xmlDoc.GetElementsByTagName("ide");
-
-                        string serie = ideXml[0]["serie"].InnerText;
-                        string numero = ideXml[0]["nNF"].InnerText;
-                        string dtemissao = ideXml[0]["dhEmi"].InnerText;
-
-
-                        //Verificando se a tag emit existe, para que possa extrar as informações
-                        var n2 = xmlDoc.GetElementsByTagName("emit").OfType<XmlNode>();
-                        if (n2 != null && n2.Count() > 0)
-                        {
-                            XmlNodeList ideXml2 = xmlDoc.GetElementsByTagName("emit");
-                            string cnpj = ideXml2[0]["CNPJ"].InnerText;
-
-                            xmls.Add(new Xml(key, serie, numero, dtemissao, cnpj));
-                        }
-                        else
-                        {
-                            xmls.Add(new Xml(key, serie, numero, dtemissao));
-                        }
-                    }
-                    else
-                    {
-                        xmls.Add(new Xml(key));
-                    }
+                    notas.Add(new Nota(invoices.key, invoices.id, invoices.mod, invoices.serie, invoices.cnpj_emitter, invoices.number, invoices.date_emission, invoices.value));
 
                 }
 
@@ -143,54 +107,21 @@ namespace Destinadas
 
                 while (total > 0)
                 {
-                    teste = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);
-                    result = JsonConvert.DeserializeObject(teste);
+                    retorno_notas = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);
+                    result = JsonConvert.DeserializeObject(retorno_notas);
 
                     foreach (var invoices in result.data.invoices)
                     {
                         contador += 1;
-                        key = invoices.key;
-                        id = invoices.id;
+                        notas.Add(new Nota(invoices.key, invoices.id, invoices.mod, invoices.serie, invoices.cnpj_emitter, invoices.number, invoices.date_emission, invoices.value));
 
-                        var retorno2 = busca.RetornaXml(key);
-                        json = JsonConvert.DeserializeObject(retorno2);
-
-                        XmlDocument xmlDoc = new XmlDocument();
-                        xmlDoc.LoadXml(json.data.xml.ToString());
-
-                        //Estraindo os dados da nota fiscal
-                        var n = xmlDoc.GetElementsByTagName("ide").OfType<XmlNode>();
-                        if (n != null && n.Count() > 0)
-                        {
-                            XmlNodeList ideXml = xmlDoc.GetElementsByTagName("ide");
-
-                            string serie = ideXml[0]["serie"].InnerText;
-                            string numero = ideXml[0]["nNF"].InnerText;
-                            string dtemissao = ideXml[0]["dhEmi"].InnerText;
-
-                            //Extraindo dados do emitente e adicionando na lista
-                            var n2 = xmlDoc.GetElementsByTagName("emit").OfType<XmlNode>();
-                            if (n2 != null && n2.Count() > 0)
-                            {
-                                XmlNodeList ideXml2 = xmlDoc.GetElementsByTagName("emit");
-                                string cnpj = ideXml2[0]["CNPJ"].InnerText;
-
-                                xmls.Add(new Xml(key, serie, numero, dtemissao, cnpj));
-                            }
-
-
-                        }
-                        else
-                        {
-                            xmls.Add(new Xml(key));
-                        }
                     }
 
                     last_id = result.data.last_id;
                     count = result.data.count;
                     total -= count;
                 }
-                this.dataGridView1.DataSource = xmls;
+                this.dataGridView1.DataSource = notas;
 
                 ////DIFININDO TAMANHO DOS CAMPOS NA GRID
                 foreach (DataGridViewColumn column in dataGridView1.Columns)
@@ -210,6 +141,7 @@ namespace Destinadas
                 }
                 lbAguarde.Text = "";
             }
+
             catch (Exception erro)
             {
                 MessageBox.Show(erro.Message);

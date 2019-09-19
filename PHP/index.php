@@ -173,14 +173,15 @@
                             $count  = $response->data->count;
                             //
 
-                            echo '<table ><th>Chaves das notas</th><th>Série</th> <th> Número nota</th><th>Cnpj emitente</th>';
+                            echo '<table ><th>Chaves das notas</th><th>Série</th> <th> Número nota</th><th>Cnpj emitente</th><th>Valor total</th>';
                             //PERCORRENDO AS PRIMEIRAS NOTAS BUSCADAS
                             foreach($notas as $n){
                                 echo '<tr>';
                                 echo '<td><a href="http://localhost/xmldestinadas/xml.php?key='.$n->key.'&auth='.$auth.'&token='.$token.'">'.$n->key.'</a> </td>';
-                                echo '<td>'.substr($n->key, 22,3).'</td>';
-                                echo '<td>'.intval(substr($n->key, 25,8)).'</td>';
-                                echo '<td>'.substr($n->key, 6,14).'</td>';
+                                echo '<td>'.$n->serie.'</td>';
+                                echo '<td>'.$n->number.'</td>';
+                                echo '<td>'.$n->cnpj_emitter.'</td>';
+                                echo '<td>'.$n->value.'</td>';
                                 echo '</tr>';
                             }
 
@@ -229,9 +230,10 @@
                                 foreach($notas as $s){
                                     echo '<tr>';
                                     echo '<td><a href="http://localhost/xmldestinadas/xml.php?key='.$s->key.'&auth='.$auth.'&token='.$token.'">'.$s->key.'</a> </td>';
-                                    echo '<td>'.substr($s->key, 22,3).'</td>';
-                                    echo '<td>'.intval(substr($s->key, 25,8)).'</td>';
-                                    echo '<td>'.substr($n->key, 6,14).'</td>';
+                                    echo '<td>'.$n->serie.'</td>';
+                                    echo '<td>'.$n->number.'</td>';
+                                    echo '<td>'.$n->cnpj_emitter.'</td>';
+                                    echo '<td>'.$n->value.'</td>';
                                     echo '</tr>';
                                 }
                             }
