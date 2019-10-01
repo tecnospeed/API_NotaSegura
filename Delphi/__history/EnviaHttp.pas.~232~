@@ -52,6 +52,9 @@ THackStringGrid = class(TStringGrid);
     FDMemTable1number: TStringField;
     FDMemTable1serie: TStringField;
     FDMemTable1cnpjemissor: TStringField;
+    FDMemTable1total: TStringField;
+    rgDownload: TRadioGroup;
+    rgModelo: TRadioGroup;
     procedure FormCreate(Sender: TObject);
     procedure btnEnviarClick(Sender: TObject);
     procedure btnArquivoClick(Sender: TObject);
@@ -197,6 +200,8 @@ var
  dataini: string;
  datafim: string;
  tipo: string;
+ modelo: string;
+ downloaded: string;
  i: integer;
  a: integer;
 begin
@@ -214,6 +219,22 @@ begin
     else
       tipo := 'all';
   end;
+
+  case rgDownload.ItemIndex of
+      0: downloaded := 'downloaded';
+      1: downloaded := 'not_downloaded';
+    else
+      downloaded := 'all';
+  end;
+
+  case rgModelo.ItemIndex of
+       0: modelo := 'NFE';
+       1: modelo := 'NFCE';
+       2: modelo := 'CTE';
+    else
+      modelo := 'NFE';
+  end;
+
 
   ParamList.Clear;
   Application.ProcessMessages;
@@ -238,9 +259,10 @@ begin
 
       jsonObject := jsArray.Items[i] as TJSONObject;
       FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key'),
-                                jsonObject.GetValue<string>('serie',
+                                jsonObject.GetValue<string>('serie'),
                                 jsonObject.GetValue<string>('number'),
-                                jsonObject.GetValue<string>('cnpj_emitter') ] );
+                                jsonObject.GetValue<string>('cnpj_emitter'),
+                                jsonObject.GetValue<string>('value') ] );
    end;
 
    total := total - count;
@@ -272,7 +294,8 @@ begin
       FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key'),
                                 jsonObject.GetValue<string>('serie'),
                                 jsonObject.GetValue<string>('number'),
-                                jsonObject.GetValue<string>('cnpj_emitter') ] );
+                                jsonObject.GetValue<string>('cnpj_emitter'),
+                                jsonObject.GetValue<string>('value') ] );
 
     end;
 

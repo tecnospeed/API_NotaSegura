@@ -310,34 +310,27 @@ object Form4: TForm4
     object FDMemTable1Key: TStringField
       DisplayWidth = 44
       FieldName = 'Key'
-      Size = 50
+      Size = 52
     end
     object FDMemTable1serie: TStringField
-      FieldKind = fkCalculated
       FieldName = 'serie'
       Size = 5
-      Calculated = True
     end
     object FDMemTable1number: TStringField
-      FieldKind = fkCalculated
       FieldName = 'number'
       Size = 10
-      Calculated = True
     end
-    object FDMemTable1cnpj_emitter: TStringField
-      FieldKind = fkCalculated
-      FieldName = 'cnpj_emitter'
+    object FDMemTable1cnpjemissor: TStringField
+      FieldName = 'cnpj emissor'
       Size = 15
-      Calculated = True
     end
-    object FDMemTable1date_emission: TStringField
-      FieldName = 'date_emission'
-      Size = 10
+    object FDMemTable1total: TStringField
+      FieldName = 'total'
+      Size = 5
     end
   end
   object DataSource1: TDataSource
     DataSet = FDMemTable1
-    OnDataChange = DataSource1DataChange
     Left = 528
     Top = 232
   end

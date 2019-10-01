@@ -68,7 +68,7 @@
 
 <div id="Consulta-Notas" class="tabcontent">
     <div class="container">
-
+        
         <form action="http://localhost/xmldestinadas/index.php" method="post">
             <input type="hidden" id="token" name="token" value="<?php if(isset($_POST['token'])) echo $_POST['token']; ?>"  placeholder="Token.." />
             <input type="hidden" name="login" value="<?php if(isset($_POST['login'])) echo $_POST['login'];?>" placeholder="E-mail">

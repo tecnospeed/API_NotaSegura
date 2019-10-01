@@ -3,7 +3,7 @@ object Form4: TForm4
   Top = 0
   Caption = 'Nota Segura - Http'
   ClientHeight = 611
-  ClientWidth = 580
+  ClientWidth = 577
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -188,21 +188,21 @@ object Form4: TForm4
       ImageIndex = 2
       object Label1: TLabel
         Left = 3
-        Top = 309
+        Top = 349
         Width = 71
         Height = 13
         Caption = 'XML RETORNO'
       end
       object Label3: TLabel
-        Left = 136
-        Top = 49
+        Left = 124
+        Top = 83
         Width = 46
         Height = 13
         Caption = 'Data final'
       end
       object Label4: TLabel
         Left = 3
-        Top = 49
+        Top = 83
         Width = 51
         Height = 13
         Caption = 'Data inicial'
@@ -223,7 +223,7 @@ object Form4: TForm4
       end
       object Button1: TButton
         Left = 3
-        Top = 95
+        Top = 129
         Width = 559
         Height = 25
         Caption = 'Consultar Notas'
@@ -232,16 +232,16 @@ object Form4: TForm4
       end
       object mmoReturn: TMemo
         Left = 3
-        Top = 328
+        Top = 368
         Width = 552
-        Height = 161
+        Height = 121
         TabOrder = 2
       end
       object DBGrid1: TDBGrid
         Left = 3
-        Top = 126
+        Top = 160
         Width = 552
-        Height = 153
+        Height = 152
         DataSource = DataSource1
         TabOrder = 3
         TitleFont.Charset = DEFAULT_CHARSET
@@ -252,7 +252,7 @@ object Form4: TForm4
       end
       object DateTimePicker1: TDateTimePicker
         Left = 3
-        Top = 68
+        Top = 102
         Width = 106
         Height = 21
         Date = 43690.000000000000000000
@@ -260,8 +260,8 @@ object Form4: TForm4
         TabOrder = 4
       end
       object DateTimePicker2: TDateTimePicker
-        Left = 136
-        Top = 68
+        Left = 124
+        Top = 102
         Width = 113
         Height = 21
         Date = 43690.000000000000000000
@@ -270,12 +270,38 @@ object Form4: TForm4
       end
       object BtnXML: TButton
         Left = 3
-        Top = 285
+        Top = 318
         Width = 552
         Height = 25
         Caption = 'Buscar XML da nota selecionada'
         TabOrder = 6
         OnClick = BtnXMLClick
+      end
+      object rgDownload: TRadioGroup
+        Left = 3
+        Top = 47
+        Width = 274
+        Height = 33
+        Caption = 'Baixadas / N'#227'o baixadas'
+        Columns = 3
+        Items.Strings = (
+          'Baixada'
+          'N'#227'o baixada'
+          'Todas')
+        TabOrder = 7
+      end
+      object rgModelo: TRadioGroup
+        Left = 283
+        Top = 47
+        Width = 272
+        Height = 33
+        Caption = 'Modelo de notas'
+        Columns = 3
+        Items.Strings = (
+          'NFE'
+          'NFCE'
+          'CTE')
+        TabOrder = 8
       end
     end
   end
@@ -289,6 +315,14 @@ object Form4: TForm4
     EditLabel.Caption = 'Senha:'
     PasswordChar = '*'
     TabOrder = 1
+  end
+  object CheckBox1: TCheckBox
+    Left = 328
+    Top = 214
+    Width = 241
+    Height = 16
+    Caption = 'Ao baixar o xml marcar como feito download ?'
+    TabOrder = 4
   end
   object OpenDialog: TOpenDialog
     Left = 471
@@ -305,8 +339,8 @@ object Form4: TForm4
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 480
-    Top = 240
+    Left = 472
+    Top = 272
     object FDMemTable1Key: TStringField
       DisplayWidth = 44
       FieldName = 'Key'
@@ -331,7 +365,7 @@ object Form4: TForm4
   end
   object DataSource1: TDataSource
     DataSet = FDMemTable1
-    Left = 528
-    Top = 232
+    Left = 520
+    Top = 272
   end
 end

@@ -53,13 +53,15 @@ THackStringGrid = class(TStringGrid);
     FDMemTable1serie: TStringField;
     FDMemTable1cnpjemissor: TStringField;
     FDMemTable1total: TStringField;
+    rgDownload: TRadioGroup;
+    rgModelo: TRadioGroup;
+    CheckBox1: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btnEnviarClick(Sender: TObject);
     procedure btnArquivoClick(Sender: TObject);
     procedure btnCadastrarClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure BtnXMLClick(Sender: TObject);
-    function  JsonXml(last_id: integer): TJSonValue;
   private
     { Private declarations }
       fHTTPClient : TIdHTTP;
@@ -170,7 +172,14 @@ begin
   begin
     ParamList.Clear;
     Application.ProcessMessages;
+
+
     url := 'https://app.notasegura.com.br/api/invoices/export?token='+ edtToken.Text +'&invoice_key='+ chave +'&mode=XML';
+    if CheckBox1.Checked = true then
+    begin
+      url := url + '&downloaded=true';
+    end;
+
     HTTPClient.Request.Accept := 'application/xml';
     HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
     HTTPClient.Request.BasicAuthentication := true;
@@ -198,6 +207,8 @@ var
  dataini: string;
  datafim: string;
  tipo: string;
+ modelo: string;
+ downloaded: string;
  i: integer;
  a: integer;
 begin
@@ -216,9 +227,25 @@ begin
       tipo := 'all';
   end;
 
+  case rgDownload.ItemIndex of
+      0: downloaded := 'downloaded';
+      1: downloaded := 'not_downloaded';
+    else
+      downloaded := 'all';
+  end;
+
+  case rgModelo.ItemIndex of
+       0: modelo := 'NFE';
+       1: modelo := 'NFCE';
+       2: modelo := 'CTE';
+    else
+      modelo := 'NFE';
+  end;
+
+
   ParamList.Clear;
   Application.ProcessMessages;
-  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod=NFE&transaction=' + tipo + '&limit=30&last_id=';
+  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ modelo +'&transaction=' + tipo + '&limit=30&last_id=' + '&filter='+ downloaded;
   HTTPClient.Request.Accept := 'application/xml';
   HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
   HTTPClient.Request.BasicAuthentication := true;
@@ -252,7 +279,7 @@ begin
 
     ParamList.Clear;
     Application.ProcessMessages;
-    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod=NFE&transaction='+ tipo +'&limit=30&last_id=' + last_id.ToString;
+    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ modelo +'&transaction='+ tipo +'&limit=30&last_id=' + last_id.ToString +  '&filter=' + downloaded;
     HTTPClient.Request.Accept := 'application/xml';
     HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
     HTTPClient.Request.BasicAuthentication := true;
@@ -299,24 +326,6 @@ begin
 
 end;
 
-//FUNÇÃO PARA BUSCAR INFORMAÇÕES VIA API
-  Function TForm4.JsonXml(last_id: integer): TJSonValue;
-  Var
-    url: string;
-    retorno: string;
-  Begin
-    ParamList.Clear;
-    Application.ProcessMessages;
-    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini=&date_end=&mod=NFE&transaction=received&limit=30&last_id=' + last_id.ToString;
-    HTTPClient.Request.Accept := 'application/xml';
-    HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
-    HTTPClient.Request.BasicAuthentication := true;
-    HTTPClient.Request.Username := edtUser.Text;
-    HTTPClient.Request.Password := edtSenha.Text;
-    retorno   := fHTTPClient.Get(url);
-
-    Result := TJSonObject.ParseJSONValue(retorno);
-  End;
 end.
 
 

@@ -50,6 +50,11 @@ THackStringGrid = class(TStringGrid);
     BtnXML: TButton;
     Label4: TLabel;
     FDMemTable1number: TStringField;
+    FDMemTable1serie: TStringField;
+    FDMemTable1cnpjemissor: TStringField;
+    FDMemTable1total: TStringField;
+    rgDownload: TRadioGroup;
+    rgModelo: TRadioGroup;
     procedure FormCreate(Sender: TObject);
     procedure btnEnviarClick(Sender: TObject);
     procedure btnArquivoClick(Sender: TObject);
@@ -195,6 +200,8 @@ var
  dataini: string;
  datafim: string;
  tipo: string;
+ modelo: string;
+ downloaded: string;
  i: integer;
  a: integer;
 begin
@@ -213,9 +220,25 @@ begin
       tipo := 'all';
   end;
 
+  case rgDownload.ItemIndex of
+      0: downloaded := 'downloaded';
+      1: downloaded := 'not_downloaded';
+    else
+      downloaded := 'all';
+  end;
+
+  case rgModelo.ItemIndex of
+       0: modelo := 'NFE';
+       1: modelo := 'NFCE';
+       2: modelo := 'CTE';
+    else
+      modelo := 'NFE';
+  end;
+
+
   ParamList.Clear;
   Application.ProcessMessages;
-  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod=NFE&transaction=' + tipo + '&limit=30&last_id=';
+  url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ modelo +'&transaction=' + tipo + '&limit=30&last_id=' + '&filter='+ downloaded;
   HTTPClient.Request.Accept := 'application/xml';
   HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
   HTTPClient.Request.BasicAuthentication := true;
@@ -235,7 +258,11 @@ begin
    begin
 
       jsonObject := jsArray.Items[i] as TJSONObject;
-      FDMemTable1.InsertRecord(['teste','t'] );
+      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key'),
+                                jsonObject.GetValue<string>('serie'),
+                                jsonObject.GetValue<string>('number'),
+                                jsonObject.GetValue<string>('cnpj_emitter'),
+                                jsonObject.GetValue<string>('value') ] );
    end;
 
    total := total - count;
@@ -245,7 +272,7 @@ begin
 
     ParamList.Clear;
     Application.ProcessMessages;
-    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod=NFE&transaction='+ tipo +'&limit=30&last_id=' + last_id.ToString;
+    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini='+ dataini +'&date_end='+ datafim +'&mod='+ modelo +'&transaction='+ tipo +'&limit=30&last_id=' + last_id.ToString + + '&filter='+ downloaded;
     HTTPClient.Request.Accept := 'application/xml';
     HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
     HTTPClient.Request.BasicAuthentication := true;
@@ -264,7 +291,11 @@ begin
     begin
 
       jsonObject := jsArray.Items[a] as TJSONObject;
-      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key')]);
+      FDMemTable1.InsertRecord([jsonObject.GetValue<string>('key'),
+                                jsonObject.GetValue<string>('serie'),
+                                jsonObject.GetValue<string>('number'),
+                                jsonObject.GetValue<string>('cnpj_emitter'),
+                                jsonObject.GetValue<string>('value') ] );
 
     end;
 
@@ -288,24 +319,6 @@ begin
 
 end;
 
-//FUNÇÃO PARA BUSCAR INFORMAÇÕES VIA API
-  Function TForm4.JsonXml(last_id: integer): TJSonValue;
-  Var
-    url: string;
-    retorno: string;
-  Begin
-    ParamList.Clear;
-    Application.ProcessMessages;
-    url := 'https://app.notasegura.com.br/api/invoices/keys?token=' + edtToken.Text + '&date_ini=&date_end=&mod=NFE&transaction=received&limit=30&last_id=' + last_id.ToString;
-    HTTPClient.Request.Accept := 'application/xml';
-    HTTPClient.Request.ContentType := 'application/x-www-form-urlencoded';
-    HTTPClient.Request.BasicAuthentication := true;
-    HTTPClient.Request.Username := edtUser.Text;
-    HTTPClient.Request.Password := edtSenha.Text;
-    retorno   := fHTTPClient.Get(url);
-
-    Result := TJSonObject.ParseJSONValue(retorno);
-  End;
 end.
 
 
