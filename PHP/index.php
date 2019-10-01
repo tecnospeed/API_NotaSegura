@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Notas destinadas</title>
     <link rel="stylesheet" type="text/css" href="style.css"  />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/w/dt/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/w/dt/dt-1.10.18/datatables.min.js"></script>
 
     <script>
         function openTab(evt, Name) {
@@ -25,7 +29,9 @@
             document.getElementById(Name).style.display = "block";
             tablinks[evt].className += " active";
         }
+
     </script>
+
 </head>
 <body>
 <div class="container-token">
@@ -92,17 +98,58 @@
                     <label for="mod">Modelo:</label>
                     </div>
                     <div class="col-90">
-                        <select name="mod" value="<?php if(isset($_POST['mod'])) echo $_POST['mod']; ?>">
-                            <option value="NFE" selected>NFE</option> 
-                            <option value="NFCE">NFCE</option>
-                            <option value="CTE">CTE</option>
-                            <option value="CCE">CCE</option>
-                            <option value="CCECTE">CCECTE</option>
-                            <option value="SAT">SAT</option>
-                            <option value="CTEOS">CTEOS</option>
+                    <?php 
+                        isset($_POST['mod']) ? $md = $_POST['mod'] : $md = "";   
+                    ?>
+                        <select name="mod">
+                            <option <?php if($md == "NFE")echo "selected";  ?> value="NFE" selected>NFE</option> 
+                            <option <?php if($md == "NFCE")echo "selected";  ?> value="NFCE">NFCE</option>
+                            <option <?php if($md == "CTE")echo "selected";  ?> value="CTE">CTE</option>
+                            <option <?php if($md == "CCE")echo "selected";  ?> value="CCE">CCE</option>
+                            <option <?php if($md == "CCECTE")echo "selected";  ?> value="CCECTE">CCECTE</option>
+                            <option <?php if($md == "SAT")echo "selected";  ?> value="SAT">SAT</option>
+                            <option <?php if($md == "CTEOS")echo "selected";  ?> value="CTEOS">CTEOS</option>
                         </select>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-10">
+                    <label for="transaction">Tipo nota:</label>
+                    </div>
+                    <div class="col-90">
+
+                    <?php 
+                        isset($_POST['transaction']) ? $tp = $_POST['transaction'] : $tp = "";   
+                    ?>
+
+                        <select name="transaction"  >
+                            <option <?php if($tp == "sent")echo "selected";  ?> value="sent" selected>Enviadas</option> 
+                            <option <?php if($tp == "received")echo "selected";  ?> value="received">Recebidas</option>
+                            <option <?php if($tp == "other")echo "selected";  ?> value="other">Outras</option>
+                            <option <?php if($tp == "all")echo "selected";  ?> value="all">Totas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10">
+                    <label for="filter">Filtro:</label>
+                    </div>
+                    <div class="col-90">
+
+                    <?php 
+                        isset($_POST['filter']) ? $fl = $_POST['filter'] : $fl = "";   
+                    ?>
+
+                        <select name="filter"  >
+                            <option <?php if($fl == "downloaded")echo "selected";  ?> value="downloaded" selected>Notas baixadas</option> 
+                            <option <?php if($fl == "not_downloaded")echo "selected";  ?> value="not_downloaded">Notas não baixadas</option>
+                            <option <?php if($fl == "all")echo "selected";  ?> value="all">Todas</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row">
                     <input type="submit" value="Consultar">
                 </div>
@@ -130,7 +177,7 @@
 
 
                         curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://app.notasegura.com.br/api/invoices/keys?token=".$token."&date_ini=".$data_ini."&date_end=".$data_fim."&mod=".$mod."&transaction=received&limit=30&last_id=",
+                        CURLOPT_URL => "https://app.notasegura.com.br/api/invoices/keys?token=".$token."&date_ini=".$data_ini."&date_end=".$data_fim."&mod=".$mod."&transaction=".$_POST['transaction']."&limit=30&last_id=&filter=".$fl,
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,
@@ -154,16 +201,20 @@
                         $err = curl_error($curl);
                         curl_close($curl);
                         //FIM  REQUISIÇÃO 
-
+                        
                         if ($err) {
                             echo "cURL Error #:" . $err;
                         } else {
-
+                           
                             //ALIMENTANDO VARIAVEIS COM O RETORNO DO JSON
-                            if($response->error == true)
+                            if(isset($response->error))
                             {   
-                                echo $response->message;
-                                exit;
+                                if($response->error == true)
+                                {
+                                    echo $response->message;
+                                    exit;
+                                }
+                                
                             }
                             
 
@@ -173,7 +224,7 @@
                             $count  = $response->data->count;
                             //
 
-                            echo '<table ><th>Chaves das notas</th><th>Série</th> <th> Número nota</th><th>Cnpj emitente</th><th>Valor total</th>';
+                            echo '<table id="myTable" class="display"> <thead><tr><th>Chaves das notas</th><th>Série</th> <th> Número nota</th><th>Cnpj emitente</th><th>Valor total</th></tr> </thead> <tbody>';
                             //PERCORRENDO AS PRIMEIRAS NOTAS BUSCADAS
                             foreach($notas as $n){
                                 echo '<tr>';
@@ -194,7 +245,7 @@
                             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
                             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
                             curl_setopt_array($curl, array(
-                                CURLOPT_URL => "https://app.notasegura.com.br/api/invoices/keys?token=".$token."&date_ini=".$data_ini."&date_end=".$data_fim."&mod=".$mod."&transaction=received&limit=30&last_id=".$lastid,
+                                CURLOPT_URL => "https://app.notasegura.com.br/api/invoices/keys?token=".$token."&date_ini=".$data_ini."&date_end=".$data_fim."&mod=".$mod."&transaction=".$_POST['transaction']."&limit=30&last_id=".$lastid."&filter=".$fl,
                                 CURLOPT_RETURNTRANSFER => true,
                                 CURLOPT_ENCODING => "",
                                 CURLOPT_MAXREDIRS => 10,
@@ -240,7 +291,7 @@
                             $total -= $count;
                             
                             }
-                            echo '</table>';
+                            echo '</tbody></table>';
                         }
                     }   
                         
@@ -353,7 +404,10 @@
             }
 
     }
-    
+
+    $(document).ready( function () {
+            $('#myTable').DataTable();
+    } );
 </script>
 
 </html>

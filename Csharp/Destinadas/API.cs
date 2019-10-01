@@ -26,13 +26,13 @@ namespace Destinadas
             Url_raiz = "https://app.notasegura.com.br/api/invoices";
         }
 
-        public string RetornaChaveXML(DateTime data_ini, DateTime data_fim, string mod, string last_id, string transaction)
+        public string RetornaChaveXML(DateTime data_ini, DateTime data_fim, string mod, string last_id, string transaction, string downloaded)
         {
             string url;
             IRestResponse retorno;
             
 
-            url = Url_raiz + "/keys?token="+ Token +"&date_ini="+ data_ini.ToString("yyyy-MM-dd") + "&date_end="+ data_fim.ToString("yyyy-MM-dd") + "&mod="+ mod +"&transaction="+ transaction +"&limit=30&last_id="+last_id;
+            url = Url_raiz + "/keys?token="+ Token +"&date_ini="+ data_ini.ToString("yyyy-MM-dd") + "&date_end="+ data_fim.ToString("yyyy-MM-dd") + "&mod="+ mod +"&transaction="+ transaction +"&limit=30&last_id="+last_id + "&filter="+downloaded;
             var client = new RestClient(url);
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Basic " + Auth);
@@ -42,12 +42,14 @@ namespace Destinadas
             return retorno.Content;
         }
 
-        public string RetornaXml(string key)
+        public string RetornaXml(string key, Boolean downloaded)
         {
             string url;
             IRestResponse retorno;
 
             url = Url_raiz + "/export?token=" + Token + "&invoice_key=" + key + "&mode=XML";
+            if (downloaded) url += "&downloaded=true";
+
             var client = new RestClient(url);
             var request = new RestRequest(Method.GET);
 

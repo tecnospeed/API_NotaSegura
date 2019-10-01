@@ -39,6 +39,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbDownload = new System.Windows.Forms.CheckBox();
             this.lbExportacaoXML = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCaminho = new System.Windows.Forms.TextBox();
@@ -64,6 +65,14 @@
             this.txtArquivoXml = new System.Windows.Forms.TextBox();
             this.btnEscolher = new System.Windows.Forms.Button();
             this.dialogArquivo = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rdAll = new System.Windows.Forms.RadioButton();
+            this.rdDownloaded = new System.Windows.Forms.RadioButton();
+            this.rdNotDownloaded = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rdNfe = new System.Windows.Forms.RadioButton();
+            this.rdNfce = new System.Windows.Forms.RadioButton();
+            this.rdCte = new System.Windows.Forms.RadioButton();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,6 +81,8 @@
             this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtLogin
@@ -168,14 +179,15 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 77);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 92);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(860, 274);
+            this.dataGridView1.Size = new System.Drawing.Size(860, 259);
             this.dataGridView1.TabIndex = 14;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbDownload);
             this.panel1.Controls.Add(this.lbExportacaoXML);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.txtCaminho);
@@ -185,6 +197,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(860, 72);
             this.panel1.TabIndex = 22;
+            // 
+            // cbDownload
+            // 
+            this.cbDownload.AutoSize = true;
+            this.cbDownload.Location = new System.Drawing.Point(0, 55);
+            this.cbDownload.Name = "cbDownload";
+            this.cbDownload.Size = new System.Drawing.Size(249, 17);
+            this.cbDownload.TabIndex = 23;
+            this.cbDownload.Text = "Marcar notas que forem salva como baixadas ?";
+            this.cbDownload.UseVisualStyleBackColor = true;
             // 
             // lbExportacaoXML
             // 
@@ -198,7 +220,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 14);
+            this.label6.Location = new System.Drawing.Point(3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(135, 13);
             this.label6.TabIndex = 21;
@@ -206,7 +228,7 @@
             // 
             // txtCaminho
             // 
-            this.txtCaminho.Location = new System.Drawing.Point(7, 30);
+            this.txtCaminho.Location = new System.Drawing.Point(3, 16);
             this.txtCaminho.Name = "txtCaminho";
             this.txtCaminho.Size = new System.Drawing.Size(511, 20);
             this.txtCaminho.TabIndex = 20;
@@ -222,7 +244,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(671, 30);
+            this.button1.Location = new System.Drawing.Point(691, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(164, 33);
             this.button1.TabIndex = 17;
@@ -232,6 +254,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.groupBox3);
+            this.panel3.Controls.Add(this.groupBox2);
             this.panel3.Controls.Add(this.lbAguarde);
             this.panel3.Controls.Add(this.txtDtInicial);
             this.panel3.Controls.Add(this.label4);
@@ -241,7 +265,7 @@
             this.panel3.Controls.Add(this.txtDtFinal);
             this.panel3.Location = new System.Drawing.Point(-3, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(872, 71);
+            this.panel3.Size = new System.Drawing.Size(872, 86);
             this.panel3.TabIndex = 23;
             // 
             // lbAguarde
@@ -255,7 +279,7 @@
             // 
             // txtDtInicial
             // 
-            this.txtDtInicial.Location = new System.Drawing.Point(9, 23);
+            this.txtDtInicial.Location = new System.Drawing.Point(9, 36);
             this.txtDtInicial.Mask = "00/00/0000";
             this.txtDtInicial.Name = "txtDtInicial";
             this.txtDtInicial.Size = new System.Drawing.Size(70, 20);
@@ -265,7 +289,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 6);
+            this.label4.Location = new System.Drawing.Point(6, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 18;
@@ -274,7 +298,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(102, 6);
+            this.label5.Location = new System.Drawing.Point(102, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 19;
@@ -286,9 +310,9 @@
             this.groupBox1.Controls.Add(this.rdOutras);
             this.groupBox1.Controls.Add(this.rdRecebidas);
             this.groupBox1.Controls.Add(this.rdEmitidas);
-            this.groupBox1.Location = new System.Drawing.Point(206, 6);
+            this.groupBox1.Location = new System.Drawing.Point(185, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(498, 45);
+            this.groupBox1.Size = new System.Drawing.Size(295, 37);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tipo nota";
@@ -296,39 +320,37 @@
             // rdTodas
             // 
             this.rdTodas.AutoSize = true;
-            this.rdTodas.Location = new System.Drawing.Point(294, 17);
+            this.rdTodas.Location = new System.Drawing.Point(232, 14);
             this.rdTodas.Name = "rdTodas";
             this.rdTodas.Size = new System.Drawing.Size(55, 17);
             this.rdTodas.TabIndex = 3;
-            this.rdTodas.TabStop = true;
             this.rdTodas.Text = "Todas";
             this.rdTodas.UseVisualStyleBackColor = true;
             // 
             // rdOutras
             // 
             this.rdOutras.AutoSize = true;
-            this.rdOutras.Location = new System.Drawing.Point(202, 16);
+            this.rdOutras.Location = new System.Drawing.Point(170, 16);
             this.rdOutras.Name = "rdOutras";
             this.rdOutras.Size = new System.Drawing.Size(56, 17);
             this.rdOutras.TabIndex = 2;
-            this.rdOutras.TabStop = true;
             this.rdOutras.Text = "Outras";
             this.rdOutras.UseVisualStyleBackColor = true;
             // 
             // rdRecebidas
             // 
             this.rdRecebidas.AutoSize = true;
-            this.rdRecebidas.Location = new System.Drawing.Point(110, 16);
+            this.rdRecebidas.Location = new System.Drawing.Point(88, 16);
             this.rdRecebidas.Name = "rdRecebidas";
             this.rdRecebidas.Size = new System.Drawing.Size(76, 17);
             this.rdRecebidas.TabIndex = 1;
-            this.rdRecebidas.TabStop = true;
             this.rdRecebidas.Text = "Recebidas";
             this.rdRecebidas.UseVisualStyleBackColor = true;
             // 
             // rdEmitidas
             // 
             this.rdEmitidas.AutoSize = true;
+            this.rdEmitidas.Checked = true;
             this.rdEmitidas.Location = new System.Drawing.Point(18, 18);
             this.rdEmitidas.Name = "rdEmitidas";
             this.rdEmitidas.Size = new System.Drawing.Size(64, 17);
@@ -339,9 +361,9 @@
             // 
             // btnConsulta
             // 
-            this.btnConsulta.Location = new System.Drawing.Point(713, 13);
+            this.btnConsulta.Location = new System.Drawing.Point(740, 24);
             this.btnConsulta.Name = "btnConsulta";
-            this.btnConsulta.Size = new System.Drawing.Size(151, 38);
+            this.btnConsulta.Size = new System.Drawing.Size(115, 32);
             this.btnConsulta.TabIndex = 15;
             this.btnConsulta.Text = "Consulta";
             this.btnConsulta.UseVisualStyleBackColor = true;
@@ -349,7 +371,7 @@
             // 
             // txtDtFinal
             // 
-            this.txtDtFinal.Location = new System.Drawing.Point(95, 23);
+            this.txtDtFinal.Location = new System.Drawing.Point(95, 36);
             this.txtDtFinal.Mask = "00/00/0000";
             this.txtDtFinal.Name = "txtDtFinal";
             this.txtDtFinal.Size = new System.Drawing.Size(70, 20);
@@ -430,6 +452,94 @@
             // 
             this.dialogArquivo.FileName = "openFileDialog1";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rdNotDownloaded);
+            this.groupBox2.Controls.Add(this.rdDownloaded);
+            this.groupBox2.Controls.Add(this.rdAll);
+            this.groupBox2.Location = new System.Drawing.Point(486, 5);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(235, 38);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Notas baixadas";
+            // 
+            // rdAll
+            // 
+            this.rdAll.AutoSize = true;
+            this.rdAll.Checked = true;
+            this.rdAll.Location = new System.Drawing.Point(7, 15);
+            this.rdAll.Name = "rdAll";
+            this.rdAll.Size = new System.Drawing.Size(55, 17);
+            this.rdAll.TabIndex = 0;
+            this.rdAll.TabStop = true;
+            this.rdAll.Text = "Todas";
+            this.rdAll.UseVisualStyleBackColor = true;
+            // 
+            // rdDownloaded
+            // 
+            this.rdDownloaded.AutoSize = true;
+            this.rdDownloaded.Location = new System.Drawing.Point(68, 14);
+            this.rdDownloaded.Name = "rdDownloaded";
+            this.rdDownloaded.Size = new System.Drawing.Size(68, 17);
+            this.rdDownloaded.TabIndex = 1;
+            this.rdDownloaded.Text = "Baixadas";
+            this.rdDownloaded.UseVisualStyleBackColor = true;
+            // 
+            // rdNotDownloaded
+            // 
+            this.rdNotDownloaded.AutoSize = true;
+            this.rdNotDownloaded.Location = new System.Drawing.Point(142, 15);
+            this.rdNotDownloaded.Name = "rdNotDownloaded";
+            this.rdNotDownloaded.Size = new System.Drawing.Size(90, 17);
+            this.rdNotDownloaded.TabIndex = 2;
+            this.rdNotDownloaded.Text = "Não baixadas";
+            this.rdNotDownloaded.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rdCte);
+            this.groupBox3.Controls.Add(this.rdNfce);
+            this.groupBox3.Controls.Add(this.rdNfe);
+            this.groupBox3.Location = new System.Drawing.Point(185, 45);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(536, 38);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Modelo nota";
+            // 
+            // rdNfe
+            // 
+            this.rdNfe.AutoSize = true;
+            this.rdNfe.Checked = true;
+            this.rdNfe.Location = new System.Drawing.Point(18, 15);
+            this.rdNfe.Name = "rdNfe";
+            this.rdNfe.Size = new System.Drawing.Size(46, 17);
+            this.rdNfe.TabIndex = 0;
+            this.rdNfe.TabStop = true;
+            this.rdNfe.Text = "NFE";
+            this.rdNfe.UseVisualStyleBackColor = true;
+            // 
+            // rdNfce
+            // 
+            this.rdNfce.AutoSize = true;
+            this.rdNfce.Location = new System.Drawing.Point(88, 15);
+            this.rdNfce.Name = "rdNfce";
+            this.rdNfce.Size = new System.Drawing.Size(53, 17);
+            this.rdNfce.TabIndex = 1;
+            this.rdNfce.Text = "NFCE";
+            this.rdNfce.UseVisualStyleBackColor = true;
+            // 
+            // rdCte
+            // 
+            this.rdCte.AutoSize = true;
+            this.rdCte.Location = new System.Drawing.Point(170, 15);
+            this.rdCte.Name = "rdCte";
+            this.rdCte.Size = new System.Drawing.Size(46, 17);
+            this.rdCte.TabIndex = 2;
+            this.rdCte.Text = "CTE";
+            this.rdCte.UseVisualStyleBackColor = true;
+            // 
             // Destinadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -453,6 +563,10 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -495,6 +609,15 @@
         private System.Windows.Forms.RadioButton rdEmitidas;
         private System.Windows.Forms.Label lbAguarde;
         private System.Windows.Forms.Label lbExportacaoXML;
+        private System.Windows.Forms.CheckBox cbDownload;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton rdNotDownloaded;
+        private System.Windows.Forms.RadioButton rdDownloaded;
+        private System.Windows.Forms.RadioButton rdAll;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton rdCte;
+        private System.Windows.Forms.RadioButton rdNfce;
+        private System.Windows.Forms.RadioButton rdNfe;
     }
 }
 

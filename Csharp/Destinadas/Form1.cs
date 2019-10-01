@@ -27,8 +27,7 @@ namespace Destinadas
             txtLogin.Text = "";
             txtSenha.Text = "";
             txtToken.Text = "";
-            
-
+           
         }
 
         private void BtnConsulta_Click(object sender, EventArgs e)
@@ -60,10 +59,11 @@ namespace Destinadas
             DateTime datafim;
             string last_id = "";
             string transaction = "sent";
-            dynamic json;
-            int contador = 0;
+            string mod = "NFE";
+            string downloaded = "all";
+;            int contador = 0;
             lbAguarde.Text = "Buscando informações, aguarde...";
-
+            //VERIFICA TIPO
             if (rdEmitidas.Checked)
                 transaction = "sent";
             if (rdRecebidas.Checked)
@@ -72,7 +72,21 @@ namespace Destinadas
                 transaction = "other";
             if (rdTodas.Checked)
                 transaction = "all";
+            //VERIFICA MODELO
+            if (rdNfce.Checked)
+                mod = "NFCE";
+            if (rdNfe.Checked)
+                mod = "NFE";
+            if (rdCte.Checked)
+                mod = "CTE";
 
+            //VERIFICA NOTAS BAIXADAS
+            if (rdAll.Checked)
+                downloaded = "all";
+            if (rdDownloaded.Checked)
+                downloaded = "downloaded";
+            if (rdNotDownloaded.Checked)
+                downloaded = "not_downloaded";
 
             try
             {
@@ -83,7 +97,7 @@ namespace Destinadas
 
 
 
-                var retorno_notas = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);  ///Método que busca as notas utilizando a API do nota segura
+                var retorno_notas = busca.RetornaChaveXML(dataini, datafim, mod, last_id, transaction, downloaded);  ///Método que busca as notas utilizando a API do nota segura
 
                 dynamic result = JsonConvert.DeserializeObject(retorno_notas);
 
@@ -107,7 +121,7 @@ namespace Destinadas
 
                 while (total > 0)
                 {
-                    retorno_notas = busca.RetornaChaveXML(dataini, datafim, "NFE", last_id, transaction);
+                    retorno_notas = busca.RetornaChaveXML(dataini, datafim, mod, last_id, transaction, downloaded);
                     result = JsonConvert.DeserializeObject(retorno_notas);
 
                     foreach (var invoices in result.data.invoices)
@@ -215,13 +229,14 @@ namespace Destinadas
             {
                 lbExportacaoXML.Text = "Arquivos sendo exportados, aguarde...";
                 dynamic json;
+                API busca = new API(txtToken.Text, txtLogin.Text, txtSenha.Text);
                 foreach (DataGridViewRow dataGridViewRow in dataGridView1.Rows)
                 {
 
                     object s = dataGridViewRow.Cells["key"].Value;
-                    API busca = new API(txtToken.Text, txtLogin.Text, txtSenha.Text);
+                    
 
-                    var retorno = busca.RetornaXml(s.ToString());
+                    var retorno = busca.RetornaXml(s.ToString(), cbDownload.Checked);
                     json = JsonConvert.DeserializeObject(retorno);
 
                     salvarArquivo(json.data.xml.ToString(), s.ToString());
@@ -236,37 +251,8 @@ namespace Destinadas
                 lbExportacaoXML.Text = "";
             }
         }
+
+
     }
 
-
-
-    //**********************************************************************************************************************
-    //OBJETO XML
-    class Xml
-    {
-        public string Key { get; set; }
-        public string Serie { get; set; }
-        public string Numero { get; set; }
-        public string DtEmissao { get; set; }
-        public string CnpjEmitente { get; set; }
-
-        public Xml(string key)
-        {
-            Key = key;
-        }
-
-        public Xml(string key, string serie, string numero, string dtEmissao) : this(key)
-        {
-            Serie = serie;
-            Numero = numero;
-            DtEmissao = dtEmissao;
-        }
-
-        public Xml(string key, string serie, string numero, string dtEmissao, string cnpjEmitente) : this(key, serie, numero, dtEmissao)
-        {
-            CnpjEmitente = cnpjEmitente;
-        }
-
-        public Xml(){ }
-    }
 }
